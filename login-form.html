@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Login</h2>
+
+<form id="loginForm">
+  <div class="container">
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required>
+
+    <button type="submit">Login</button>
+  </div>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$("#loginForm").submit(function(e) {
+    e.preventDefault();
+
+    var username = $("input[name=username]").val();
+    var password = $("input[name=password]").val();
+
+    $.ajax({
+        url: "https://2q7fl58yo6.execute-api.eu-north-1.amazonaws.com/login",  // Replace with your API Gateway URL
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            alert(JSON.parse(data.body));
+        },
+        data: JSON.stringify({ "username": username, "password": password })
+    });
+});
+</script>
+
+</body>
+</html>
